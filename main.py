@@ -1,11 +1,27 @@
+from PySide6.QtWidgets import QApplication, QWidget, QMainWindow, QPushButton
+from PySide6.QtCore import Slot
+import sys
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+
+class MainWindow(QMainWindow):
+    def __init__(self, parent=None, title_txt=None, qt_obj=None, update_log_method=None):
+        super(MainWindow, self).__init__(parent)
+
+        self.setWindowTitle("My App")
+        button = QPushButton("Press Me", self)
+        button.clicked.connect(say_hello)
+        button.show()
+        self.centralWidget()
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+@Slot()
+def say_hello():
+    print("Button clicked, Hello!")
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+app = QApplication(sys.argv)
+
+window = MainWindow()
+window.show()
+
+app.exec()
